@@ -1,0 +1,297 @@
+/* style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(145deg, #757584, #47474e, #7d93cf);
+    padding: 1rem;
+    animation: bgPulse 8s ease-in-out infinite;
+}
+
+@keyframes bgPulse {
+    0%, 100% { background: linear-gradient(145deg, #0a0a1a, #1a1a2e, #16213e); }
+    50% { background: linear-gradient(145deg, #0d0d25, #1f1f3a, #1a2a45); }
+}
+
+.calculator {
+    width: 380px;
+    background: rgba(15, 15, 30, 0.92);
+    backdrop-filter: blur(20px);
+    padding: 28px;
+    border-radius: 35px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    animation: floatCalc 4s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+@keyframes floatCalc {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Display Styling */
+.display {
+    background: rgba(22, 22, 40, 0.85);
+    padding: 24px 22px;
+    border-radius: 22px;
+    text-align: right;
+    margin-bottom: 28px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    word-break: break-all;
+    box-shadow: inset 0 6px 15px rgba(0, 0, 0, 0.5),
+                0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+.display::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+    animation: shimmer 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: translate(-30%, -30%) rotate(0deg); }
+    50% { transform: translate(30%, 30%) rotate(180deg); }
+}
+
+.display-preview {
+    font-size: 1rem;
+    color: #71719a;
+    min-height: 1.8rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+    animation: fadeInUp 0.3s ease;
+}
+
+.display-main {
+    font-size: 2.8rem;
+    color: #ffffff;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    letter-spacing: -0.5px;
+    animation: numberPop 0.25s ease;
+}
+
+@keyframes numberPop {
+    0% { transform: scale(0.9); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.display-main.shrink {
+    font-size: 2rem;
+}
+
+/* Buttons Grid Layout */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    border: none;
+    outline: none;
+    padding: 18px 12px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Normal Number Buttons - Purple Gradient */
+.btn:not(.btn-operator):not(.btn-action):not(.btn-clear):not(.btn-equal) {
+    background: linear-gradient(145deg, #2d1b69, #1a0f3a);
+    color: #c8b8e8;
+    border: 1px solid rgba(120, 80, 200, 0.2);
+    box-shadow: 0 4px 15px rgba(45, 27, 105, 0.3);
+}
+
+.btn:not(.btn-operator):not(.btn-action):not(.btn-clear):not(.btn-equal):hover {
+    background: linear-gradient(145deg, #3d2b79, #2a1f4a);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 25px rgba(45, 27, 105, 0.5);
+    border-color: rgba(120, 80, 200, 0.4);
+}
+
+.btn:not(.btn-operator):not(.btn-action):not(.btn-clear):not(.btn-equal):active {
+    transform: translateY(3px) scale(0.97);
+}
+
+/* Operator Buttons - Orange/Amber */
+.btn-operator {
+    background: linear-gradient(145deg, #f09b0a, #d4880a);
+    color: #ffffff;
+    border: 1px solid rgba(240, 155, 10, 0.3);
+    box-shadow: 0 4px 20px rgba(240, 155, 10, 0.3);
+    animation: glowOrange 2s ease-in-out infinite;
+}
+
+@keyframes glowOrange {
+    0%, 100% { box-shadow: 0 4px 20px rgba(240, 155, 10, 0.3); }
+    50% { box-shadow: 0 4px 35px rgba(240, 155, 10, 0.6); }
+}
+
+.btn-operator:hover {
+    background: linear-gradient(145deg, #ffb030, #e09515);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 30px rgba(240, 155, 10, 0.5);
+}
+
+.btn-operator:active {
+    transform: translateY(3px) scale(0.97);
+}
+
+/* Action Buttons - Cyan/Blue */
+.btn-action {
+    background: linear-gradient(145deg, #0a6b8a, #064a60);
+    color: #7dd3fc;
+    border: 1px solid rgba(0, 180, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(10, 107, 138, 0.3);
+}
+
+.btn-action:hover {
+    background: linear-gradient(145deg, #0f7a9a, #085a70);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 30px rgba(10, 107, 138, 0.5);
+}
+
+.btn-action:active {
+    transform: translateY(3px) scale(0.97);
+}
+
+/* Clear Button - Red/Pink */
+.btn-clear {
+    background: linear-gradient(145deg, #8b1a1a, #5c0e0e);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 80, 80, 0.2);
+    box-shadow: 0 4px 20px rgba(139, 26, 26, 0.3);
+    animation: glowRed 2s ease-in-out infinite;
+}
+
+@keyframes glowRed {
+    0%, 100% { box-shadow: 0 4px 20px rgba(139, 26, 26, 0.3); }
+    50% { box-shadow: 0 4px 35px rgba(139, 26, 26, 0.6); }
+}
+
+.btn-clear:hover {
+    background: linear-gradient(145deg, #9b2a2a, #6c1e1e);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 30px rgba(139, 26, 26, 0.5);
+}
+
+.btn-clear:active {
+    transform: translateY(3px) scale(0.97);
+}
+
+/* Equal Button - Green/Neon */
+.btn-equal {
+    background: linear-gradient(145deg, #00b894, #00a381);
+    color: #ffffff;
+    border: 1px solid rgba(0, 200, 150, 0.3);
+    box-shadow: 0 4px 25px rgba(0, 184, 148, 0.4);
+    animation: glowGreen 1.5s ease-in-out infinite;
+}
+
+@keyframes glowGreen {
+    0%, 100% { box-shadow: 0 4px 25px rgba(0, 184, 148, 0.4); }
+    50% { box-shadow: 0 4px 40px rgba(0, 184, 148, 0.7); }
+}
+
+.btn-equal:hover {
+    background: linear-gradient(145deg, #00c9a0, #00b390);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 35px rgba(0, 184, 148, 0.6);
+}
+
+.btn-equal:active {
+    transform: translateY(3px) scale(0.97);
+}
+
+.btn-zero {
+    grid-column: span 2;
+}
+
+/* Button ripple effect */
+.btn-ripple {
+    animation: rippleAnim 0.4s ease;
+}
+
+@keyframes rippleAnim {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 420px) {
+    .calculator {
+        width: 100%;
+        padding: 20px;
+        border-radius: 28px;
+    }
+    .btn {
+        padding: 15px 10px;
+        font-size: 1.2rem;
+        border-radius: 14px;
+    }
+    .display-main {
+        font-size: 2.4rem;
+    }
+    .display {
+        padding: 18px 16px;
+        min-height: 100px;
+    }
+}
+
+@media (max-width: 360px) {
+    .btn {
+        padding: 12px 8px;
+        font-size: 1rem;
+        border-radius: 12px;
+    }
+    .buttons {
+        gap: 8px;
+    }
+    .display-main {
+        font-size: 2rem;
+    }
+}
+
+/* Calculator entrance animation */
+.calculator {
+    animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), floatCalc 4s ease-in-out infinite 0.6s;
+}
+
+@keyframes slideUp {
+    0% { opacity: 0; transform: translateY(40px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
